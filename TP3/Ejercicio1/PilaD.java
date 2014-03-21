@@ -1,8 +1,14 @@
 package TP3.Ejercicio1;
 
+/**
+ * Clase que representa una pila dinamica
+ */
 public class PilaD implements Pila{
     private Nodo tope;
 
+    /**
+     * Construye la pila dinamica asignando el tope como nulo (lo cual representa que la pila esta vacia)
+     */
     public PilaD(){
         tope = null;
     }

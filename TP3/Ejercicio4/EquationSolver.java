@@ -2,12 +2,21 @@ package TP3.Ejercicio4;
 
 import java.util.Scanner;
 
+/**
+ * Clase que representa la interaccion con el usario para el ingreso de la ecuacion
+ */
 public class EquationSolver {
 
+    /**
+     * Constructor de la clase que ejecuta el metodo que pide la ecuacion
+     */
     public EquationSolver(){
         askEquation();
     }
 
+    /**
+     * Metodo que pide la ecuacion y que informa las especificaciones que debe seguir
+     */
     private void askEquation(){
         System.out.println("A continuación debera ingresar la ecuacion a calcular \n");
         System.out.println("IMPORTANTE");
@@ -21,6 +30,11 @@ public class EquationSolver {
         analiseEquation(scan.next());
     }
 
+    /**
+     * Analiza la ecuacion teniendo en cuenta que se cumplan las especificaciones e imprime su resultado
+     * Si no se cumplen, informa el error en ella y vuelve a pedirla
+     * @param equation la ecuacion a analizar
+     */
     private void analiseEquation(String equation){
         Calculator calculatingMachine;
 

@@ -1,9 +1,16 @@
 package TP3.Ejercicio1;
 
+/**
+ * Clase que representa una pila estatica
+ */
 public class PilaE implements Pila {
     private int tope;
     private Object[] conjuntoDeDatos;
 
+    /**
+     * Construye la pila asignando como valor tope el cero (la pila no contiene ningun elemento)
+     * E inicializa un arregla de objetos que almacenara los objetos de la pila
+     */
     public PilaE(){
         tope = 0;
         conjuntoDeDatos = new Object[5];
