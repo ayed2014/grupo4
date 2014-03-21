@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class Estacionamiento {
 
-    private PilaE playa;
-    private PilaE vereda;
+    private Pila playa;
+    private Pila vereda;
 
     private int dinero;
     private int count;
