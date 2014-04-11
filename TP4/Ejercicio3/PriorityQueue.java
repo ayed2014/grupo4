@@ -1,8 +1,9 @@
 package TP4.Ejercicio3;
 
+import TP4.Queue;
 import TP3.Ejercicio1.Nodo;
 
-public class PriorityQueue {
+public class PriorityQueue implements Queue{
     private int amount;
     private Nodo first;
     private Nodo last;
@@ -13,7 +14,7 @@ public class PriorityQueue {
         last = null;
     }
 
-    public void enqueueAlt(Priorizable x) {
+    private void enqueueAlt(Priorizable x) {
         Nodo toAdd = new Nodo(x, null);
         amount++;
         if (isEmpty()) {
@@ -45,14 +46,10 @@ public class PriorityQueue {
     }
 
     public void enqueue(Object x) {
-        Nodo toAdd = new Nodo(x, null);
-        amount++;
-        if (isEmpty()) {
-            first = toAdd;
-            last = toAdd;
+        if (x instanceof Priorizable) {
+            enqueueAlt((Priorizable)x);
         } else {
-            last.setNodo(toAdd);
-            last = toAdd;
+            System.out.println("Cannot enqueue");
         }
     }
 
