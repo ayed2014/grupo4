@@ -186,39 +186,17 @@ public class EmpresaLamparas {
     }
 
     private void mostrar() {
-        if (lamparas.getRoot() != null) {
-            SearchBinTree left = lamparas.getLeft();
-            SearchBinTree right = lamparas.getRight();
-            if (left != null) {
-                while (!left.isEmpty()) {
-                    try {
-                        Lampara temp = (Lampara) left.getMin();
-                        temp.informar();
-                        left.eliminar(temp);
-                    } catch (EmptyTreeException e) {
-                        e.printStackTrace();
-                    } catch (ObjectExistenceException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        printInOrder(lamparas);
+    }
 
-            Lampara raiz = (Lampara) lamparas.getRoot();
-            raiz.informar();
-
-            if (right != null) {
-                while (!right.isEmpty()) {
-                    try {
-                        Lampara temp = (Lampara) right.getMin();
-                        temp.informar();
-                        right.eliminar(temp);
-                    } catch (EmptyTreeException e) {
-                        e.printStackTrace();
-                    } catch (ObjectExistenceException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    public void printInOrder(SearchBinTree a) {
+        if (a.isEmpty()) {
+            return;
+        } else {
+            printInOrder(a.getLeft());
+            Lampara temp = (Lampara) a.getRoot();
+            temp.informar();
+            printInOrder(a.getRight());
         }
     }
 
