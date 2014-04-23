@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class EmpresaLamparas {
     private SearchBinTree lamparas;
 
-    public EmpresaLamparas(){
+    public EmpresaLamparas() {
         lamparas = new SearchBinTree();
-        while (true){
+        while (true) {
             System.out.println("Ingrese el numero de la operacion a realizar: ");
             System.out.println("1) Nueva lampara");
             System.out.println("2) Eliminar lampara");
@@ -17,7 +17,7 @@ public class EmpresaLamparas {
 
             Scanner scanner = new Scanner(System.in);
             int accion = scanner.nextInt();
-            switch (accion){
+            switch (accion) {
                 case 1:
                     agregar();
                     break;
@@ -40,29 +40,29 @@ public class EmpresaLamparas {
         }
     }
 
-    private void agregar(){
+    private void agregar() {
         System.out.println("Ingrese el codigo de la nueva lampara (5 caracteres): ");
         Scanner scanner = new Scanner(System.in);
         String codigo = scanner.next();
-        if (codigo.length() != 5){
+        if (codigo.length() != 5) {
             System.out.println("Codigo invalido");
             return;
         }
         System.out.println("Ingrese el tipo de lampara (Max 10 caracteres): ");
         String descripcion = scanner.next();
-        if (descripcion.length() > 10){
+        if (descripcion.length() > 10) {
             System.out.println("Descripcion invalida");
             return;
         }
         System.out.println("Ingrese los watts: ");
         int watts = scanner.nextInt();
-        if (watts <= 0){
+        if (watts <= 0) {
             System.out.println("Watts invalidos");
             return;
         }
         System.out.println("Ingrese la cantidad: ");
         int stock = scanner.nextInt();
-        if (stock < 0){
+        if (stock < 0) {
             System.out.println("Cantidad invalida");
             return;
         }
@@ -73,11 +73,11 @@ public class EmpresaLamparas {
         }
     }
 
-    private void eliminar(){
+    private void eliminar() {
         System.out.println("Ingrese el codigo de la lampara a eliminar (5 caracteres): ");
         Scanner scanner = new Scanner(System.in);
         String codigo = scanner.next();
-        if (codigo.length() == 5){
+        if (codigo.length() == 5) {
             try {
                 lamparas.eliminar(new Lampara(codigo));
                 System.out.println("Operacion exitosa");
@@ -90,19 +90,19 @@ public class EmpresaLamparas {
         }
     }
 
-    private void modificar(){
+    private void modificar() {
         System.out.println("Ingrese el codigo de la lampara a modificar (5 caracteres): ");
         Scanner scanner = new Scanner(System.in);
         String codigo = scanner.next();
-        if (codigo.length() == 5){
+        if (codigo.length() == 5) {
             try {
-                Lampara temp = (Lampara)lamparas.buscar(new Lampara(codigo));
+                Lampara temp = (Lampara) lamparas.buscar(new Lampara(codigo));
                 System.out.println("Ingrese el numero de la opcion: ");
                 System.out.println("1) Nuevo tipo de lampara");
                 System.out.println("2) Nuevo voltaje");
                 System.out.println("3) Modificar Stock");
                 int accion = scanner.nextInt();
-                switch (accion){
+                switch (accion) {
                     case 1:
                         modificarTipo(temp);
                         break;
@@ -128,13 +128,13 @@ public class EmpresaLamparas {
         }
     }
 
-    public void modificarTipo(Lampara aModificar){
+    public void modificarTipo(Lampara aModificar) {
         try {
             lamparas.eliminar(aModificar);
             System.out.println("Ingrese el nuevo tipo (Max 10 caracteres): ");
             Scanner scanner = new Scanner(System.in);
             String descr = scanner.next();
-            if (descr.length() > 10){
+            if (descr.length() > 10) {
                 System.out.println("Descripcion invalida");
             } else {
                 aModificar.setTipo(descr);
@@ -147,13 +147,13 @@ public class EmpresaLamparas {
         }
     }
 
-    public void modificarVoltaje(Lampara aModificar){
+    public void modificarVoltaje(Lampara aModificar) {
         try {
             lamparas.eliminar(aModificar);
             System.out.println("Ingrese el voltaje: ");
             Scanner scanner = new Scanner(System.in);
             int descr = scanner.nextInt();
-            if (descr <= 0){
+            if (descr <= 0) {
                 System.out.println("Voltaje invalido");
             } else {
                 aModificar.setWatts(descr);
@@ -166,13 +166,13 @@ public class EmpresaLamparas {
         }
     }
 
-    public void modificarStock(Lampara aModificar){
+    public void modificarStock(Lampara aModificar) {
         try {
             lamparas.eliminar(aModificar);
             System.out.println("Ingrese el stock: ");
             Scanner scanner = new Scanner(System.in);
             int descr = scanner.nextInt();
-            if (descr < 0){
+            if (descr < 0) {
                 System.out.println("Stock invalido");
             } else {
                 aModificar.setStock(descr);
@@ -185,17 +185,41 @@ public class EmpresaLamparas {
         }
     }
 
-    private void mostrar(){
-        while(!lamparas.isEmpty()){
-            try {
-                Lampara temp = (Lampara) lamparas.getMin();
-                temp.informar();
-                lamparas.eliminar(temp);
-            } catch (EmptyTreeException e) {
-                e.printStackTrace();
-            } catch (ObjectExistenceException e) {
-                e.printStackTrace();
+    private void mostrar() {
+        if (lamparas.getRoot() != null) {
+            SearchBinTree left = lamparas.getLeft();
+            SearchBinTree right = lamparas.getRight();
+            if (left != null) {
+                while (!left.isEmpty()) {
+                    try {
+                        Lampara temp = (Lampara) left.getMin();
+                        temp.informar();
+                        left.eliminar(temp);
+                    } catch (EmptyTreeException e) {
+                        e.printStackTrace();
+                    } catch (ObjectExistenceException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            Lampara raiz = (Lampara) lamparas.getRoot();
+            raiz.informar();
+
+            if (right != null) {
+                while (!right.isEmpty()) {
+                    try {
+                        Lampara temp = (Lampara) right.getMin();
+                        temp.informar();
+                        right.eliminar(temp);
+                    } catch (EmptyTreeException e) {
+                        e.printStackTrace();
+                    } catch (ObjectExistenceException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
+
 }
